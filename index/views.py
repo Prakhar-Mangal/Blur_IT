@@ -72,20 +72,14 @@ def uploadRestore(request):
     src = f'{user_folder}/input/{fname}.png'
     maskdir=f'{user_folder}/input/m-{fname}.png'
     dest = f'{user_folder}/output/o-{fname}.png'
-
     uri=DataURI(img)
-
     fd=open(src,'wb')
     fd.write(uri.data)
     fd.close()
-
-
     uri=DataURI(mask)
     fd=open(maskdir,'wb')
     fd.write(uri.data)
     fd.close()
-
-
     cp.saveCompressed(src)
     rs.restore(src,maskdir,dest)   
     output_uri =b64encode(DataURI.from_file(dest).data)
@@ -96,17 +90,6 @@ def uploadRestore(request):
 
 
     return HttpResponse(output_uri)
-
-
-
-    
-
-
-
-
-
-
-
 
 def viewimg(req, hash_id):
     rec = Record.objects.filter(afterhash=hash_id)
